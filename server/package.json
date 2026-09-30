@@ -1,0 +1,40 @@
+{
+  "name": "@alpe/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file=../.env src/index.ts",
+    "build": "esbuild src/index.ts src/cli.ts --bundle --platform=node --target=node20 --format=esm --outdir=dist --packages=external --alias:@alpe/shared=../shared/src/index.ts --sourcemap",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "tsx --env-file=../.env src/cli.ts migrate",
+    "db:seed": "tsx --env-file=../.env src/cli.ts seed",
+    "create-admin": "tsx --env-file=../.env src/cli.ts create-admin"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.13.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@alpe/shared": "*",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/compression": "^1.7.5",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^20.16.5",
+    "@types/pg": "^8.11.10",
+    "esbuild": "^0.24.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}

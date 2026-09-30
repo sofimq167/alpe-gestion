@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 215 28% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 14%;
+    --primary: 197 84% 27%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 94%;
+    --secondary-foreground: 215 28% 20%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 14% 44%;
+    --accent: 197 60% 95%;
+    --accent-foreground: 197 84% 22%;
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 152 60% 32%;
+    --success-foreground: 0 0% 100%;
+    --warning: 35 92% 42%;
+    --warning-foreground: 0 0% 100%;
+    --border: 214 20% 89%;
+    --input: 214 20% 84%;
+    --ring: 197 84% 35%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .page-title {
+    @apply text-xl font-semibold tracking-tight text-foreground;
+  }
+  .section-title {
+    @apply text-sm font-semibold text-foreground;
+  }
+  .label-muted {
+    @apply text-xs font-medium uppercase tracking-wide text-muted-foreground;
+  }
+}
+
+@media print {
+  aside,
+  header,
+  .print\:hidden {
+    display: none !important;
+  }
+  main {
+    overflow: visible !important;
+  }
+  body {
+    background: white;
+  }
+}

@@ -1,0 +1,33 @@
+# Blueprint de Render: un solo servicio web gratuito (API + aplicación).
+# La base de datos es Supabase PostgreSQL (plan gratuito); su cadena de conexión va en DATABASE_URL.
+services:
+  - type: web
+    name: alpe-gestion
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false # se escribe a mano en Render (cadena "Session pooler" de Supabase)
+      - key: DATABASE_SSL
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true # Render genera un valor aleatorio seguro
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_NAME
+        value: Administrador
+      - key: SEED_DEMO_DATA
+        value: "false"
+      - key: APP_TIMEZONE
+        value: America/Bogota
