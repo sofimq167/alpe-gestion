@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Factory, Info } from 'lucide-react';
+import { Calculator, Factory, Info } from 'lucide-react';
 import * as React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import {
@@ -13,7 +13,7 @@ import {
   markupOnCost,
   type ComponentRole,
 } from '@alpe/shared';
-import { Alert, ErrorState, Loading, MarginStatusBadge, MarginText, PageHeader, StatCard } from '@/components/common';
+import { Alert, EmptyState, ErrorState, Loading, MarginStatusBadge, MarginText, PageHeader, StatCard } from '@/components/common';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -61,6 +61,28 @@ export function CalculatorPage() {
 
   if (products.isLoading) return <Loading />;
   if (products.error) return <ErrorState error={products.error} />;
+  if (list.length === 0) {
+    return (
+      <>
+        <PageHeader title="Calculador de precios" />
+        <EmptyState
+          icon={<Calculator />}
+          title="Aún no hay presentaciones activas"
+          description="Para calcular costos y precios, primero registre los insumos y luego cree una presentación con su estructura de costos."
+          action={
+            <div className="flex flex-wrap justify-center gap-2">
+              <Button variant="outline" asChild>
+                <Link to="/precios/insumos">Ir a Insumos</Link>
+              </Button>
+              <Button asChild>
+                <Link to="/precios/presentaciones">Crear presentación</Link>
+              </Button>
+            </div>
+          }
+        />
+      </>
+    );
+  }
 
   const d = detail.data;
   const saved = d?.summary.useBlown ?? false;
@@ -88,7 +110,9 @@ export function CalculatorPage() {
           </div>
         }
       />
-      {detail.isLoading || !d || !scenario || !s ? (
+      {detail.error ? (
+        <ErrorState error={detail.error} />
+      ) : detail.isLoading || !d || !scenario || !s ? (
         <Loading />
       ) : (
         <div className="space-y-6">
